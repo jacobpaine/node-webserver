@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "bower": "bower install"
   },
   "repository": {
     "type": "git",
@@ -21,9 +22,12 @@
   "homepage": "https://github.com/jacobpaine/node-webserver#readme",
   "dependencies": {
     "express": "^4.13.4",
-    "node-cal": "github:maostrander/node-cal"
+    "jade": "^1.11.0",
+    "node-cal": "github:maostrander/node-cal",
+    "node-sass-middleware": "^0.9.7"
   },
   "devDependencies": {
+    "bower": "^1.7.7",
     "nodemon": "^1.8.1"
   }
 }

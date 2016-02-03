@@ -2,9 +2,17 @@
 
 const express = require('express');
 const app = express();
-
 const PORT = process.env.PORT || 3000;
+const toCal = 'cal/2016/1'
 
+app.set('view engine', 'jade');
+app.get('/', (req, res) => {
+  res.render('index', {
+    title: 'Super Cool App',
+    date: new Date(),
+    toCal: toCal
+  });
+});
   app.get('/hello', (req, res)=>{
     const name = req.query.name;
     const msg = `<h1>Hello ${name}!</h1>
@@ -25,11 +33,16 @@ const PORT = process.env.PORT || 3000;
  });
 
 app.get('/cal/:year/:month', (req, res) => {
+  console.log('correct!');
     const monthYear = require('node-cal/lib/month').joinOutput;
     const month = parseInt(req.params.month);
     const year = parseInt(req.params.year);
-    console.log(req.params);
-    res.end(monthYear(year, month, 'darwin'));
+    res.render('cal', {
+      title: "This is the Calendar Title",
+      cal: monthYear(year, month, 'darwin')
+    })
+
+    //res.end(monthYear(year, month, 'darwin'));
  });
 
 
@@ -60,15 +73,15 @@ app.get('/random/:min/:max', (req, res) => {
 });
 
 
-app.all('*', (req, res) => {
-//Express version
-  res
-    .status(403)
-    .send('Access Denied!');
-//Non-express
-     //res.writeHead(403);
-      //res.end('Access Denied!');
-});
+//app.all('*', (req, res) => {
+////Express version
+  //res
+    //.status(403)
+    //.send('Access Denied!');
+////Non-express
+     ////res.writeHead(403);
+      ////res.end('Access Denied!');
+//});
 
 app.listen(PORT, () => {
   console.log(`Node.js server is started. Listening on port ${PORT}`);
