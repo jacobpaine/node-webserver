@@ -4,6 +4,10 @@ const express = require('express');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const toCal = 'cal/2016/1'
+const fs = require('fs');
+
+const upload = require('multer')({dest: 'tmp/uploads'});
+const bodyParser= require('body-parser');
 
 app.set('view engine', 'jade');
 app.get('/', (req, res) => {
@@ -13,7 +17,44 @@ app.get('/', (req, res) => {
     toCal: toCal
   });
 });
-  app.get('/hello', (req, res)=>{
+
+
+app.locals.title = 'THE Super Cool App';
+
+// Put your middleware functions before your routes
+
+//app.use(bodyParser.urlencoded({extended:false}))
+
+app.get('/contact', (req, res) => {
+    res.render('contact');
+});
+
+app.post('/contact', (req, res) => {
+  res.send(`<h1>Thanks contact ${name}</h1>`);
+});
+
+
+app.get('/send-photo', (req, res) => {
+  res.render('sendphoto');
+});
+
+app.post('/send-photo', upload.single('image'), (req, res) => {
+  let tmp_path = req.file.path
+  let target_path = './public/images/' + req.file.originalname;
+    fs.rename(tmp_path, target_path, function(err) {
+        if (err) throw err;
+        // delete the temporary file, so that the explicitly set temporary upload dir does not get filled with unwanted files
+        fs.unlink(tmp_path, function() {
+            if (err) throw err;
+            res.end('File uploaded to: ' + target_path + ' - ' + req.file.size + ' bytes');
+        });
+    });
+
+  res.send('<h1>Thanks photo</h1>');
+});
+
+
+app.get('/hello', (req, res)=>{
     const name = req.query.name;
     const msg = `<h1>Hello ${name}!</h1>
  <h2>Goodbye ${name}</h2>`;
@@ -21,7 +62,7 @@ app.get('/', (req, res) => {
     res.writeHead(200, {
        'Content-Type': 'text/html'
     });
-
+i
     //const msg = `<h1>BORK BORK BORK!</h1>`;
     let time = 1000;
     //chunk response by character
@@ -33,7 +74,6 @@ app.get('/', (req, res) => {
  });
 
 app.get('/cal/:year/:month', (req, res) => {
-  console.log('correct!');
     const monthYear = require('node-cal/lib/month').joinOutput;
     const month = parseInt(req.params.month);
     const year = parseInt(req.params.year);

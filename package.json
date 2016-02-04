@@ -22,7 +22,9 @@
   "homepage": "https://github.com/jacobpaine/node-webserver#readme",
   "dependencies": {
     "express": "^4.13.4",
+    "imgur": "^0.1.7",
     "jade": "^1.11.0",
+    "multer": "^1.1.0",
     "node-cal": "github:maostrander/node-cal",
     "node-sass-middleware": "^0.9.7"
   },
