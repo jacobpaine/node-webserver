@@ -1,16 +1,12 @@
-doctype html
-html
-  head
-    title= title
+extends ./viewTemp.jade
+block body
+  h1 Welcome to #{title}
+  p The date is now #{date.toLocaleDateString()}
 
-  body
-    h1 Welcome to #{title}
-    p The date is now #{date.toLocaleDateString()}
+  p But to see even more amazing things, checkout the links below!
 
-    p But to see even more amazing things, checkout the links below!
+  a.button(href= toCal) To the Calendar!
 
-    a.button(href= toCal) To the Calendar!
+  p And admire my sassy work!
 
-    p And admire my sassy work!
 
-    

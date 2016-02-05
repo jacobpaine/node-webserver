@@ -5,11 +5,23 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const toCal = 'cal/2016/1'
 const fs = require('fs');
+const imgur = require('imgur');
+const path = require('path');
 
 const upload = require('multer')({dest: 'tmp/uploads'});
 const bodyParser= require('body-parser');
 
 app.set('view engine', 'jade');
+
+// Put Sass in. Static goes AFTER require.
+app.use(require('node-sass-middleware')({
+  src: path.join(__dirname, 'public'),
+  dest: path.join(__dirname, 'public'),
+  sourceMap: true
+}));
+
+app.use(express.static(path.join(__dirname, 'public')));
+//////////////////////////////////////////
 app.get('/', (req, res) => {
   res.render('index', {
     title: 'Super Cool App',
@@ -36,6 +48,7 @@ app.post('/contact', (req, res) => {
 
 app.get('/send-photo', (req, res) => {
   res.render('sendphoto');
+
 });
 
 app.post('/send-photo', upload.single('image'), (req, res) => {
@@ -48,6 +61,17 @@ app.post('/send-photo', upload.single('image'), (req, res) => {
             if (err) throw err;
             res.end('File uploaded to: ' + target_path + ' - ' + req.file.size + ' bytes');
         });
+
+        function upload() {
+        imgur.uploadFile(target_path)
+          .then(function (json) {
+              console.log(json.data.link);
+          })
+          .catch(function (err) {
+              console.error("err on upload", err.message);
+          });
+       }
+       upload()
     });
 
   res.send('<h1>Thanks photo</h1>');
