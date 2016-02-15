@@ -18,7 +18,7 @@ const MONGODB_URL_PREFIX = MONGODB_USER
   ? `${MONGODB_USER}:${MONGODB_PASS}@`
   : '';
 
-const MONGODB_URL = `mongodb://${MONGODB_USER}:${MONGODB_PASS}@${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_NAME}`;
+const MONGODB_URL = `mongodb://${MONGODB_URL_PREFIX}${MONGODB_HOST}:${MONGODB_PORT}/${MONGODB_NAME}`;
 
 app.set('view engine', 'jade');
 
