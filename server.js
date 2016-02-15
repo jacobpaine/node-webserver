@@ -11,7 +11,6 @@ const MONGODB_HOST = process.env.MONGODB_HOST || 'localhost';
 const MONGODB_PORT = process.env.MONGODB_PORT || 27017;
 const MONGODB_USER = process.env.MONGODB_USER || '';
 const MONGODB_PASS = process.env.MONGODB_PASS || '';
-const MONGODB_DB = 'node-webserver';
 const MONGODB_NAME = process.env.MONGODB_NAME  || 'node-webserver';
 
 const MONGODB_URL_PREFIX = MONGODB_USER
