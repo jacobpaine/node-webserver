@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const routes = require('./routes/');
 const PORT = process.env.PORT || 3000;
 
-const MONGODB_HOST = process.env.MONGODB_URL || 'localhost';
+const MONGODB_HOST = process.env.MONGODB_HOST || 'localhost';
 const MONGODB_PORT = process.env.MONGODB_PORT || 27017;
 const MONGODB_USER = process.env.MONGODB_USER || '';
 const MONGODB_PASS = process.env.MONGODB_PASS || '';
